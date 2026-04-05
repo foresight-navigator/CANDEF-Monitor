@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canada Defence Tech Ecosystem Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root,[data-theme="light"]{
+  --color-bg:#f7f6f2;--color-surface:#f9f8f5;--color-surface-2:#fbfbf9;
+  --color-surface-offset:#f3f0ec;--color-surface-offset-2:#edeae5;--color-surface-dynamic:#e6e4df;
+  --color-divider:#dcd9d5;--color-border:#d4d1ca;--color-text:#28251d;
+  --color-text-muted:#7a7974;--color-text-faint:#bab9b4;--color-text-inverse:#f9f8f4;
+  --color-primary:#01696f;--color-primary-hover:#0c4e54;--color-primary-highlight:#cedcd8;
+  --color-warning:#964219;--color-warning-highlight:#ddcfc6;
+  --color-error:#a12c7b;--color-error-highlight:#e0ced7;
+  --color-success:#437a22;--color-success-highlight:#d4dfcc;
+  --color-gold:#d19900;--color-gold-highlight:#e9e0c6;
+  --color-blue:#006494;--color-blue-highlight:#c6d8e4;
+  --color-orange:#da7101;--color-purple:#7a39bb;
+  --shadow-sm:0 1px 2px oklch(0.2 0.01 80/.06);--shadow-md:0 4px 12px oklch(0.2 0.01 80/.08);--shadow-lg:0 12px 32px oklch(0.2 0.01 80/.12);
+  --radius-sm:.375rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--radius-full:9999px;
+  --font-body:'Inter',system-ui,sans-serif;--font-mono:'JetBrains Mono','Courier New',monospace;
+  --text-xs:clamp(.75rem,.7rem + .25vw,.875rem);--text-sm:clamp(.875rem,.8rem + .35vw,1rem);
+  --text-base:clamp(1rem,.95rem + .25vw,1.125rem);--text-lg:clamp(1.125rem,1rem + .75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-5:1.25rem;
+  --space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;
+  --transition-interactive:180ms cubic-bezier(.16,1,.3,1);
+  --sidebar-w:230px;--topbar-h:54px;
+}
+[data-theme="dark"]{
+  --color-bg:#111110;--color-surface:#161614;--color-surface-2:#1a1918;
+  --color-surface-offset:#1d1c1a;--color-surface-offset-2:#202020;--color-surface-dynamic:#2a2927;
+  --color-divider:#252422;--color-border:#333230;--color-text:#d0cfc9;
+  --color-text-muted:#7a7875;--color-text-faint:#4a4947;--color-text-inverse:#2b2a28;
+  --color-primary:#4f98a3;--color-primary-hover:#227f8b;--color-primary-highlight:#1e3438;
+  --color-warning:#c9723e;--color-warning-highlight:#3d2e20;
+  --color-error:#d163a7;--color-error-highlight:#3a1f30;
+  --color-success:#6daa45;--color-success-highlight:#213016;
+  --color-gold:#e8af34;--color-gold-highlight:#332a12;
+  --color-blue:#5591c7;--color-blue-highlight:#162033;
+  --color-orange:#e88a30;--color-purple:#a86fdf;
+  --shadow-sm:0 1px 2px oklch(0 0 0/.3);--shadow-md:0 4px 12px oklch(0 0 0/.4);--shadow-lg:0 12px 32px oklch(0 0 0/.5);
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme]){
+  --color-bg:#111110;--color-surface:#161614;--color-surface-2:#1a1918;
+  --color-surface-offset:#1d1c1a;--color-surface-dynamic:#2a2927;--color-divider:#252422;--color-border:#333230;
+  --color-text:#d0cfc9;--color-text-muted:#7a7875;--color-text-faint:#4a4947;
+  --color-primary:#4f98a3;--color-primary-highlight:#1e3438;
+  --color-warning:#c9723e;--color-warning-highlight:#3d2e20;
+  --color-error:#d163a7;--color-error-highlight:#3a1f30;
+  --color-success:#6daa45;--color-success-highlight:#213016;
+  --color-gold:#e8af34;--color-gold-highlight:#332a12;
+  --color-blue:#5591c7;--color-blue-highlight:#162033;--color-orange:#e88a30;--color-purple:#a86fdf;
+}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{font-family:var(--font-body);font-size:var(--text-sm);color:var(--color-text);background:var(--color-bg);min-height:100dvh;display:flex;flex-direction:column;line-height:1.55}
+img{display:block;max-width:100%;height:auto}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+table{border-collapse:collapse;width:100%}
+a{color:inherit;text-decoration:none}
+a,button,[role="button"]{transition:color var(--transition-interactive),background var(--transition-interactive),border-color var(--transition-interactive),box-shadow var(--transition-interactive),opacity var(--transition-interactive)}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:3px;border-radius:var(--radius-sm)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* LAYOUT */
+.app-shell{display:flex;height:100dvh;overflow:hidden}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--color-surface);border-right:1px solid var(--color-border);display:flex;flex-direction:column;overflow-y:auto;z-index:10}
+.sidebar-header{padding:var(--space-4);border-bottom:1px solid var(--color-divider);display:flex;align-items:center;gap:var(--space-3);min-height:var(--topbar-h)}
+.sidebar-title{font-size:var(--text-sm);font-weight:700;color:var(--color-text);line-height:1.2}
+.sidebar-subtitle{font-size:10px;color:var(--color-text-faint);margin-top:2px;text-transform:uppercase;letter-spacing:.05em}
+.sidebar-nav{padding:var(--space-3) var(--space-2);flex:1}
+.nav-section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-faint);padding:var(--space-3) var(--space-3) var(--space-1)}
+.nav-item{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--color-text-muted);cursor:pointer;user-select:none;margin-bottom:1px}
+.nav-item:hover{background:var(--color-surface-offset);color:var(--color-text)}
+.nav-item.active{background:var(--color-primary-highlight);color:var(--color-primary);font-weight:600}
+.nav-item svg{flex-shrink:0;opacity:.7}
+.nav-item.active svg{opacity:1}
+.main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:var(--topbar-h);border-bottom:1px solid var(--color-border);background:var(--color-surface);display:flex;align-items:center;padding:0 var(--space-6);gap:var(--space-4);flex-shrink:0;z-index:5}
+.topbar-title{font-size:var(--text-base);font-weight:700;flex:1}
+.topbar-actions{display:flex;align-items:center;gap:var(--space-2)}
+.content-area{flex:1;overflow-y:auto;padding:var(--space-6);scroll-padding-top:var(--space-4)}
+.panel{display:none}
+.panel.active{display:block}
+
+/* COMPONENTS */
+.card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-5);box-shadow:var(--shadow-sm)}
+.card-title{font-size:var(--text-sm);font-weight:600;color:var(--color-text)}
+.card-desc{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-1)}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:var(--space-4);margin-bottom:var(--space-6)}
+.kpi-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5)}
+.kpi-label{font-size:10px;color:var(--color-text-faint);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:var(--space-2)}
+.kpi-value{font-size:var(--text-xl);font-weight:700;font-variant-numeric:tabular-nums lining-nums;color:var(--color-text);line-height:1;margin-bottom:var(--space-1)}
+.kpi-sub{font-size:10px;color:var(--color-text-muted)}
+.kpi-accent{color:var(--color-primary)}
+.badge{display:inline-flex;align-items:center;gap:var(--space-1);padding:2px var(--space-2);border-radius:var(--radius-full);font-size:11px;font-weight:600;white-space:nowrap;line-height:1.6}
+.badge-traction{background:var(--color-success-highlight);color:var(--color-success)}
+.badge-credible{background:var(--color-primary-highlight);color:var(--color-primary)}
+.badge-signal{background:var(--color-gold-highlight);color:var(--color-gold)}
+.badge-unproven{background:var(--color-warning-highlight);color:var(--color-warning)}
+.badge-weak{background:var(--color-surface-offset-2);color:var(--color-text-muted)}
+.badge-fund{background:var(--color-blue-highlight);color:var(--color-blue)}
+.badge-pol{background:var(--color-error-highlight);color:var(--color-error)}
+.badge-prod{background:var(--color-primary-highlight);color:var(--color-primary)}
+.badge-coal{background:var(--color-gold-highlight);color:var(--color-gold)}
+.badge-part{background:var(--color-success-highlight);color:var(--color-success)}
+.badge-contract{background:var(--color-warning-highlight);color:var(--color-warning)}
+.conf{display:inline-flex;align-items:center;gap:3px;font-size:var(--text-xs);color:var(--color-text-muted)}
+.conf-dot{width:8px;height:8px;border-radius:50%;background:var(--color-surface-dynamic)}
+.conf-dot.hi{background:var(--color-success)}
+.conf-dot.med{background:var(--color-gold)}
+.conf-dot.lo{background:var(--color-warning)}
+.data-table{width:100%;border-collapse:collapse;font-size:var(--text-xs);font-variant-numeric:tabular-nums}
+.data-table th{text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-faint);padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--color-border);background:var(--color-surface);position:sticky;top:0;z-index:1}
+.data-table td{padding:var(--space-3);border-bottom:1px solid var(--color-divider);vertical-align:top;color:var(--color-text)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:var(--color-surface-offset)}
+.td-date{color:var(--color-text-muted);white-space:nowrap;font-family:var(--font-mono);font-size:11px}
+.td-mono{font-family:var(--font-mono);font-size:11px}
+.td-muted{color:var(--color-text-muted);font-size:var(--text-xs);max-width:300px;line-height:1.4}
+.td-src a{color:var(--color-primary);text-decoration:underline;font-size:10px;word-break:break-all}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+.mb-4{margin-bottom:var(--space-4)}.mb-6{margin-bottom:var(--space-6)}
+.section-heading{font-size:var(--text-base);font-weight:700;margin-bottom:var(--space-5);color:var(--color-text);padding-bottom:var(--space-3);border-bottom:1px solid var(--color-divider)}
+.section-heading span{display:block;font-size:var(--text-xs);font-weight:400;color:var(--color-text-muted);margin-top:var(--space-1)}
+.filter-bar{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-4);align-items:center}
+.filter-chip{padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);font-size:var(--text-xs);font-weight:500;border:1px solid var(--color-border);background:var(--color-surface);color:var(--color-text-muted);cursor:pointer;user-select:none}
+.filter-chip:hover{border-color:var(--color-primary);color:var(--color-primary)}
+.filter-chip.active{background:var(--color-primary-highlight);border-color:var(--color-primary);color:var(--color-primary)}
+.filter-label{font-size:10px;color:var(--color-text-faint);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.legend{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;margin-bottom:var(--space-4)}
+.legend-item{display:flex;align-items:center;gap:var(--space-1);font-size:var(--text-xs);color:var(--color-text-muted)}
+.legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.chart-wrap{position:relative;height:210px}
+.theme-btn{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-md);color:var(--color-text-muted)}
+.theme-btn:hover{background:var(--color-surface-offset);color:var(--color-text)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--color-surface-dynamic);border-radius:3px}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:var(--space-2)}
+.timeline::before{content:'';position:absolute;left:17px;top:8px;bottom:8px;width:1px;background:var(--color-border)}
+.tl-item{display:flex;gap:var(--space-4);padding-bottom:var(--space-5);position:relative}
+.tl-dot{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;position:relative;z-index:1;letter-spacing:.03em}
+.tl-body{flex:1;padding-top:4px}
+.tl-date{font-size:11px;color:var(--color-text-faint);font-family:var(--font-mono);margin-bottom:3px}
+.tl-title{font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1);color:var(--color-text)}
+.tl-desc{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5;margin-bottom:var(--space-2)}
+.tl-footer{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center}
+.tl-source{font-size:10px;color:var(--color-text-faint);margin-top:var(--space-2)}
+
+/* ECO */
+.eco-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--space-3)}
+.eco-node{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4);cursor:default;transition:box-shadow var(--transition-interactive),border-color var(--transition-interactive)}
+.eco-node:hover{box-shadow:var(--shadow-md);border-color:var(--color-primary)}
+.eco-tag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-faint);margin-bottom:var(--space-2);display:flex;align-items:center;gap:var(--space-1)}
+.eco-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.eco-name{font-weight:700;font-size:var(--text-sm);margin-bottom:2px}
+.eco-loc{font-size:var(--text-xs);color:var(--color-text-faint);margin-bottom:var(--space-2)}
+.eco-desc{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.4;margin-bottom:var(--space-3)}
+.eco-badges{display:flex;flex-wrap:wrap;gap:var(--space-1)}
+
+/* SHIFTS */
+.shift-row{border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:var(--space-3)}
+.shift-hdr{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);background:var(--color-surface);cursor:pointer;user-select:none;padding:var(--space-4);flex-wrap:wrap}
+.shift-hdr:hover{background:var(--color-surface-offset)}
+.shift-name{font-weight:700;font-size:var(--text-sm);flex:1}
+.shift-body{display:none;padding:var(--space-5);background:var(--color-surface-2);border-top:1px solid var(--color-divider)}
+.shift-body.open{display:block}
+.shift-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)}
+.scol-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:var(--space-2);padding-bottom:var(--space-1);border-bottom:1px solid var(--color-divider)}
+.scol li{font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-1) 0;border-bottom:1px solid var(--color-divider);line-height:1.4;list-style:none}
+.scol li:last-child{border:none}
+.scol li.pro{color:var(--color-success)}
+.scol li.con{color:var(--color-warning)}
+
+/* POLICY */
+.policy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--space-4)}
+.p-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);overflow:hidden}
+.p-head{padding:var(--space-3) var(--space-4);background:var(--color-surface-offset);border-bottom:1px solid var(--color-divider)}
+.p-name{font-weight:700;font-size:var(--text-sm);margin-bottom:2px}
+.p-amount{font-family:var(--font-mono);font-size:10px;color:var(--color-gold)}
+.p-body{padding:var(--space-4)}
+.p-desc{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5;margin-bottom:var(--space-3)}
+.p-efx{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2);margin-bottom:var(--space-3)}
+.pe{font-size:10px;padding:var(--space-2);border-radius:var(--radius-md);background:var(--color-surface-offset);text-align:center}
+.pe strong{display:block;font-size:9px;color:var(--color-text-faint);margin-bottom:1px;text-transform:uppercase;letter-spacing:.05em}
+.pe-y{color:var(--color-success)}
+.pe-n{color:var(--color-text-faint)}
+.p-note{font-size:10px;color:var(--color-text-faint);line-height:1.4;border-top:1px solid var(--color-divider);padding-top:var(--space-2)}
+
+/* SOVEREIGNTY */
+.sov-row{display:flex;align-items:center;gap:var(--space-4);padding:var(--space-3) var(--space-4);border-bottom:1px solid var(--color-divider)}
+.sov-row:last-child{border:none}
+.sov-lbl{flex:0 0 200px;font-size:var(--text-xs);font-weight:500;line-height:1.3}
+.sov-bar-w{flex:1}
+.sov-bar{height:7px;border-radius:var(--radius-full);background:var(--color-surface-dynamic);overflow:hidden}
+.sov-fill{height:100%;border-radius:var(--radius-full);transition:width 1s cubic-bezier(.16,1,.3,1)}
+.sov-sub{font-size:10px;color:var(--color-text-faint);margin-top:2px}
+.sov-lvl{flex:0 0 140px;text-align:right}
+.f-sov .sov-fill{background:var(--color-success)}
+.p-sov .sov-fill{background:var(--color-gold)}
+.w-sov .sov-fill{background:var(--color-warning)}
+
+/* WATCHLIST */
+.wl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:var(--space-4)}
+.wl-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)}
+.wl-top{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-2);margin-bottom:var(--space-3)}
+.wl-name{font-weight:700;font-size:var(--text-sm);flex:1}
+.wl-body{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5;margin-bottom:var(--space-3)}
+.wl-foot{display:flex;gap:var(--space-2);align-items:center;flex-wrap:wrap}
+.wl-timing{font-size:10px;font-family:var(--font-mono);color:var(--color-text-faint)}
+.wl-type{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+
+/* CONTRA */
+.contra{padding:var(--space-4);border-left:3px solid var(--color-warning);background:var(--color-warning-highlight);border-radius:0 var(--radius-md) var(--radius-md) 0;margin-bottom:var(--space-3)}
+.contra strong{display:block;color:var(--color-warning);margin-bottom:var(--space-1);font-size:var(--text-sm)}
+.contra p{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5}
+
+/* OVERVIEW SUMMARY */
+.overview-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-bottom:var(--space-6)}
+.os-col{background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:var(--space-4)}
+.os-title{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;margin-bottom:var(--space-3);padding-bottom:var(--space-2);border-bottom:1px solid var(--color-divider)}
+.os-item{font-size:var(--text-xs);color:var(--color-text-muted);padding:var(--space-1) 0;line-height:1.4;border-bottom:1px solid var(--color-divider)}
+.os-item:last-child{border:none}
+
+@media(max-width:768px){.sidebar{display:none}.two-col,.three-col,.shift-grid,.overview-summary{grid-template-columns:1fr}.sov-lbl{flex:0 0 120px}}
+</style>
+</head>
+<body>
+<div class="app-shell">
+<nav class="sidebar" aria-label="Dashboard navigation">
+  <div class="sidebar-header">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+      <rect width="30" height="30" rx="7" fill="var(--color-primary)" opacity=".12"/>
+      <polygon points="15,3 26,9 26,21 15,27 4,21 4,9" fill="none" stroke="var(--color-primary)" stroke-width="1.5"/>
+      <circle cx="15" cy="15" r="4" fill="var(--color-primary)" opacity=".9"/>
+      <line x1="15" y1="3" x2="15" y2="11" stroke="var(--color-primary)" stroke-width="1.5"/>
+      <line x1="26" y1="9" x2="19.5" y2="12" stroke="var(--color-primary)" stroke-width="1.5" opacity=".5"/>
+      <line x1="4" y1="9" x2="10.5" y2="12" stroke="var(--color-primary)" stroke-width="1.5" opacity=".5"/>
+    </svg>
+    <div>
+      <div class="sidebar-title">CANDEF Monitor</div>
+      <div class="sidebar-subtitle">Conditions &amp; Ecosystem</div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Overview</div>
+    <div class="nav-item active" onclick="showPanel('overview',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Thesis Monitor
+    </div>
+    <div class="nav-section-label">Panels</div>
+    <div class="nav-item" onclick="showPanel('timeline',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      1 · Timeline
+    </div>
+    <div class="nav-item" onclick="showPanel('ecosystem',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      2 · Ecosystem Map
+    </div>
+    <div class="nav-item" onclick="showPanel('shifts',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      3 · Strategic Shifts
+    </div>
+    <div class="nav-item" onclick="showPanel('policy',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      4 · Policy &amp; Procurement
+    </div>
+    <div class="nav-item" onclick="showPanel('sovereignty',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      5 · Sovereignty Layer
+    </div>
+    <div class="nav-item" onclick="showPanel('watchlist',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      6 · Watchlist
+    </div>
+    <div class="nav-section-label">Reference</div>
+    <div class="nav-item" onclick="showPanel('sources',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Sources &amp; Confidence
+    </div>
+  </div>
+</nav>
+
+<div class="main-area">
+  <div class="topbar">
+    <div class="topbar-title" id="topbar-title">Thesis Monitor</div>
+    <div class="topbar-actions">
+      <span style="font-size:10px;color:var(--color-text-faint);font-family:var(--font-mono);">Apr 5, 2026 · Research-based · Read-only</span>
+      <button class="theme-btn" data-theme-toggle aria-label="Toggle theme" title="Toggle light/dark mode">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="content-area">
+
+<!-- OVERVIEW PANEL -->
+<div class="panel active" id="panel-overview">
+  <div class="section-heading">Thesis Monitor
+    <span>System-level conditions tracking — as of March 25, 2026. DD appears as one actor and signal. No unsourced claims.</span>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Mapped Capital Commitments</div>
+      <div class="kpi-value kpi-accent">$54M+</div>
+      <div class="kpi-sub">BDC $4B · NRC $900M+ · ISED $2.4B · DD $54M+ · other</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Ecosystem Actors Mapped</div>
+      <div class="kpi-value" style="color:var(--color-gold)">18</div>
+      <div class="kpi-sub">Startups, primes, enablers, gov bodies</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Policy Mechanisms Active</div>
+      <div class="kpi-value" style="color:var(--color-blue)">11</div>
+      <div class="kpi-sub">Funding + procurement reform levers</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Timeline Events Tracked</div>
+      <div class="kpi-value" style="color:var(--color-purple)">21</div>
+      <div class="kpi-sub">Oct 2025 → Mar 2026</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Thesis Confidence</div>
+      <div class="kpi-value" style="color:var(--color-warning)">Med-Hi</div>
+      <div class="kpi-sub">Signal strong; traction partially proven</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">DIA Partner Designation</div>
+      <div class="kpi-value" style="color:var(--color-error)">Q3 '26</div>
+      <div class="kpi-sub">Critical near-term institutional gate</div>
+    </div>
+  </div>
+
+  <!-- THESIS STATUS CARDS -->
+  <div class="two-col mb-6">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:var(--space-3)">Thesis 1: Canadian Defence Ecosystem Conditions Are Strengthening</div>
+      <div style="margin-bottom:var(--space-3)"><span class="badge badge-credible">Credible Movement</span></div>
+      <p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3)">
+        Dominion Dynamics exhibits neo-prime positioning through: (a) $50M ACP investment self-designating as integrator, 
+        (b) AuraNet → Autonomous Command Platform product arc, (c) cross-domain advisory board 
+        (ex-Lockheed, RCAF, CSIS, NATO), (d) CADC co-founder role, (e) active procurement positioning 
+        for SSE/NORAD Modernization. No major contract win yet constitutes proof.
+      </p>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-success)"></div>Policy &amp; capital conditions strengthening</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-warning)"></div>Transition to operational delivery unproven</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:var(--space-3)">Thesis 2: Sovereign Defence Stack Formation</div>
+      <div style="margin-bottom:var(--space-3)"><span class="badge badge-credible">Credible Movement</span></div>
+      <p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3)">
+        Stack layers are forming independently and showing coordination signals: Denvr (compute), 
+        Cohere/CPSP (AI inference), DD (integration/C2), CAE (simulation), Kraken (maritime autonomy), 
+        MDA/49North (ISR), Calian (C5ISRT). CADC initiative attempts explicit ecosystem binding. 
+        Interoperability between layers remains undemonstrated in an operational context.
+      </p>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-gold)"></div>Layer formation active</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-warning)"></div>Integration unproven</div>
+      </div>
+    </div>
+  </div>
+  <div class="two-col mb-6">
+    <div class="card">
+      <div class="card-title" style="margin-bottom:var(--space-3)">Thesis 3: Policy/Procurement Enablement</div>
+      <div style="margin-bottom:var(--space-3)"><span class="badge badge-traction">Institutional Traction</span></div>
+      <p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3)">
+        Defence Industrial Strategy (Apr 2024), DIA establishment, BOREALIS program, BDC $4B platform, 
+        Sovereign AI Compute Strategy, and DSRB multilateral framework (18 nations, Montreal Mar 23–26 2026) 
+        collectively represent the most significant alignment of Canadian defence-industrial policy levers 
+        in decades. Procurement reform remains partial — ITB rules still favour large foreign primes.
+      </p>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-success)"></div>Policy enacted</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-gold)"></div>Procurement reform lagging</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:var(--space-3)">Thesis 4: Durable Institutional Traction Converting</div>
+      <div style="margin-bottom:var(--space-3)"><span class="badge badge-signal">Signal Only (pending)</span></div>
+      <p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-3)">
+        The key open question: are signals converting into institutional traction? 
+        Pre-DIA designation (summer 2026), this remains unproven. CADC formation, DSRB participation, and DIA preferred-partner positioning across ecosystem firms are necessary prerequisites. 
+        A Q3 2026 DIA strategic partner designation for any CADC-adjacent firm, or a major NORAD/SSE contract award to a Canadian ecosystem actor, would constitute first genuine institutional traction evidence for the system as a whole.
+      </p>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-warning)"></div>Gate event: DIA Q3 2026</div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--color-error)"></div>No major contract yet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OVERALL STACK LAYER STATUS TABLE -->
+  <div class="section-heading" style="margin-top:var(--space-6)">Sovereign Stack Layer Status
+    <span>Each layer assessed by formation, readiness, and sovereign status</span>
+  </div>
+  <div class="card mb-6" style="padding:0;overflow:hidden">
+    <table class="data-table">
+      <thead><tr>
+        <th>Stack Layer</th><th>Primary Actor(s)</th><th>Formation</th><th>Readiness</th><th>Sovereignty</th><th>Evidence Level</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="td-mono">Sovereign Compute</td><td>Denvr Dataworks</td><td>✓ Active</td><td>Operational (Calgary)</td><td><span class="badge badge-traction">Full</span></td><td><span class="badge badge-traction">Institutional Traction</span></td></tr>
+        <tr><td class="td-mono">AI Foundation Models</td><td>Cohere / CPSP</td><td>✓ Active</td><td>Deployed (CPSP pilot)</td><td><span class="badge badge-signal">Partial</span></td><td><span class="badge badge-credible">Credible Movement</span></td></tr>
+        <tr><td class="td-mono">Integration / C2</td><td>Dominion Dynamics</td><td>✓ Active</td><td>Platform development</td><td><span class="badge badge-credible">Claimed</span></td><td><span class="badge badge-credible">Credible Movement</span></td></tr>
+        <tr><td class="td-mono">Simulation / Digital Twin</td><td>CAE Inc.</td><td>✓ Established</td><td>Deployed (F-35, CF-18)</td><td><span class="badge badge-traction">Full</span></td><td><span class="badge badge-traction">Institutional Traction</span></td></tr>
+        <tr><td class="td-mono">Maritime Autonomy</td><td>Kraken Robotics</td><td>✓ Active</td><td>RAN/NATO deployed</td><td><span class="badge badge-traction">Full</span></td><td><span class="badge badge-traction">Institutional Traction</span></td></tr>
+        <tr><td class="td-mono">Space / ISR</td><td>MDA Space / 49North</td><td>✓ Active</td><td>LEO operational</td><td><span class="badge badge-credible">Partial</span></td><td><span class="badge badge-credible">Credible Movement</span></td></tr>
+        <tr><td class="td-mono">C5ISRT Orchestration</td><td>Calian Group</td><td>✓ Established</td><td>NATO-deployed</td><td><span class="badge badge-traction">Full</span></td><td><span class="badge badge-traction">Institutional Traction</span></td></tr>
+        <tr><td class="td-mono">Drone / UAS</td><td>North Vector / Pegasus</td><td>⚠ Early</td><td>Prototype/development</td><td><span class="badge badge-signal">Claimed</span></td><td><span class="badge badge-signal">Signal Only</span></td></tr>
+        <tr><td class="td-mono">Sovereign Space Launch</td><td>NordSpace / Reaction Dynamics</td><td>⚠ Early</td><td>Pre-launch</td><td><span class="badge badge-signal">Claimed</span></td><td><span class="badge badge-signal">Signal Only</span></td></tr>
+        <tr><td class="td-mono">Ecosystem Coordination</td><td>CADC (multi-firm)</td><td>⚠ Forming</td><td>Announced Mar 2026</td><td><span class="badge badge-unproven">Unproven</span></td><td><span class="badge badge-unproven">Procurement Relevance Not Yet Proven</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TIMELINE PANEL -->
+<div class="panel" id="panel-timeline">
+  <div class="section-heading">Timeline of Major Developments — Oct 2025 → Mar 2026
+    <span>Dated events from the research base. Filter by type or actor.</span>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-label">Type:</span>
+    <span class="filter-chip active" onclick="filterTimeline('all',this)">All</span>
+    <span class="filter-chip" onclick="filterTimeline('fund',this)">Financing</span>
+    <span class="filter-chip" onclick="filterTimeline('prod',this)">Product/Platform</span>
+    <span class="filter-chip" onclick="filterTimeline('part',this)">Partnership</span>
+    <span class="filter-chip" onclick="filterTimeline('coal',this)">Coalition/Council</span>
+    <span class="filter-chip" onclick="filterTimeline('pol',this)">Policy</span>
+    <span class="filter-chip" onclick="filterTimeline('contract',this)">Contract/Procurement</span>
+    <span class="filter-label" style="margin-left:var(--space-2)">Actor:</span>
+    <span class="filter-chip active" onclick="filterTimelineActor('all',this)">All</span>
+    <span class="filter-chip" onclick="filterTimelineActor('DD',this)">Dominion Dynamics</span>
+    <span class="filter-chip" onclick="filterTimelineActor('GOV',this)">Government</span>
+    <span class="filter-chip" onclick="filterTimelineActor('ECO',this)">Ecosystem</span>
+  </div>
+
+  <div class="card" style="padding:var(--space-5)">
+  <div class="timeline" id="timeline-container">
+
+    <div class="tl-item" data-type="pol" data-actor="GOV">
+      <div class="tl-dot" style="background:var(--color-error-highlight);color:var(--color-error)">POL</div>
+      <div class="tl-body">
+        <div class="tl-date">April 2024</div>
+        <div class="tl-title">Canada's Defence Industrial Strategy Released</div>
+        <div class="tl-desc">DND/PSPC release the Defence Industrial Strategy — the foundational policy document identifying five capability pillars (NORAD mod, space, cyber, Arctic, AI). Establishes the framework for the Defence Investment Agency and signals shift toward Canadian industrial partners for sovereign capabilities.</div>
+        <div class="tl-footer">
+          <span class="badge badge-pol">Policy</span>
+          <span class="badge badge-traction">Institutional Traction</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: DND.gc.ca, April 2024 — <em>Why it matters:</em> Establishes the policy architecture and demand signal for Canadian defence ecosystem growth — the foundational condition for every subsequent development.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="fund" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-primary-highlight);color:var(--color-primary)">FUND</div>
+      <div class="tl-body">
+        <div class="tl-date">August 2025</div>
+        <div class="tl-title">Dominion Dynamics: $4M Pre-Seed Round</div>
+        <div class="tl-desc">DD closes a $4M pre-seed round led by ONE9 Ventures and Kensington Capital, both with known defence-adjacent investment theses. Round funds initial AuraNet drone-mesh development and early advisory board recruitment. Provides institutional validation at earliest stage.</div>
+        <div class="tl-footer">
+          <span class="badge badge-fund">Financing</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: DD press release, August 2025 — <em>Why it matters:</em> One of the earliest signs that Canadian defence-focused capital is willing to back autonomous systems integration at the seed stage — a signal of emerging investor thesis formation.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="prod" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-success-highlight);color:var(--color-success)">PROD</div>
+      <div class="tl-body">
+        <div class="tl-date">October 2025</div>
+        <div class="tl-title">AuraNet Field Trial — CAF Northern Exercise Integration</div>
+        <div class="tl-desc">DD's AuraNet drone-mesh system participates in a Canadian Armed Forces northern training exercise. First documented integration of DD platform with CAF operational environment. Demonstrates terrain-adaptive mesh resilience in Arctic-adjacent conditions. Result: qualified success per DD post-exercise report.</div>
+        <div class="tl-footer">
+          <span class="badge badge-prod">Product</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot med"></div>Medium confidence</div>
+        </div>
+        <div class="tl-source">Source: DD/CAF statement, October 2025 — <em>Why it matters:</em> An early example of a Canadian autonomy startup reaching operational proximity with CAF — one indicator of growing prototype-to-field testing pathways.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="pol" data-actor="GOV">
+      <div class="tl-dot" style="background:var(--color-error-highlight);color:var(--color-error)">POL</div>
+      <div class="tl-body">
+        <div class="tl-date">November 2025</div>
+        <div class="tl-title">BDC $4B Defence and Security Platform Announced</div>
+        <div class="tl-desc">Business Development Bank of Canada announces a $4B dedicated defence and security investment platform, the largest single capital commitment to the Canadian defence industrial base. Targets SMEs and scale-ups across prime-enabling technology areas including AI, autonomy, and C2.</div>
+        <div class="tl-footer">
+          <span class="badge badge-pol">Policy</span>
+          <span class="badge badge-fund">Financing</span>
+          <span class="badge badge-traction">Institutional Traction</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: BDC.ca, November 2025 — <em>Why it matters:</em> The largest single capital commitment to the Canadian defence industrial base in recent memory — materially improving capital conditions for Canadian defence firms across the ecosystem.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="part" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-gold-highlight);color:var(--color-gold)">PART</div>
+      <div class="tl-body">
+        <div class="tl-date">November 2025</div>
+        <div class="tl-title">DD–Denvr Dataworks Infrastructure MOU</div>
+        <div class="tl-desc">Dominion Dynamics signs an MOU with Denvr Dataworks (Calgary) to provide sovereign, classified-capable AI compute infrastructure for DD platform workloads. Denvr operates Canada's largest privately-owned GPU cluster with Canadian data residency. MOU explicitly references future SECRET-level workload migration.</div>
+        <div class="tl-footer">
+          <span class="badge badge-part">Partnership</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: DD/Denvr joint release, November 2025 — <em>Why it matters:</em> Demonstrates that Canadian defence firms can resolve sovereign compute dependencies domestically — a structural precondition for any credible sovereign AI capability claim.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="prod" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-success-highlight);color:var(--color-success)">PROD</div>
+      <div class="tl-body">
+        <div class="tl-date">December 2025</div>
+        <div class="tl-title">DD Platform Pivot: AuraNet → Autonomous Command Platform (ACP)</div>
+        <div class="tl-desc">DD publicly reframes from "AuraNet drone-mesh product company" to "Autonomous Command Platform" integrator. ACP is positioned as an AI-driven multi-domain command layer that orchestrates heterogeneous autonomous systems (drones, maritime USV, ground vehicles) from a single sovereign interface. This is a direct integrator/prime-like positioning statement.</div>
+        <div class="tl-footer">
+          <span class="badge badge-prod">Platform Shift</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: DD website / investor materials, December 2025 — <em>Why it matters:</em> One of the clearest industry signals of platform-level ambition inside the ecosystem — DD repositioning from product vendor to integration layer is a case study in the startup-to-integrator pathway now available under DIS.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="pol" data-actor="GOV">
+      <div class="tl-dot" style="background:var(--color-error-highlight);color:var(--color-error)">POL</div>
+      <div class="tl-body">
+        <div class="tl-date">January 2026</div>
+        <div class="tl-title">Defence Investment Agency — Formal Establishment</div>
+        <div class="tl-desc">DIA formally constituted under Bill C-78, with mandate to designate "preferred strategic partners" in sovereign capability areas by summer 2026. DIA framework includes expedited procurement pathways (non-competitive preferred partner contracts) and ITB reform for designated firms. Initial focus areas: AI/autonomy, cyber, and Arctic surveillance.</div>
+        <div class="tl-footer">
+          <span class="badge badge-pol">Policy</span>
+          <span class="badge badge-traction">Institutional Traction</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: DND/Gov.ca, January 2026 — <em>Why it matters:</em> DIA formal establishment creates a genuine preferred-partner procurement pathway — the most consequential institutional reform for Canadian defence tech ecosystem transition from signal to strategic relationship. Summer 2026 first designation window is the critical near-term gate for the whole sector.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="pol" data-actor="GOV">
+      <div class="tl-dot" style="background:var(--color-error-highlight);color:var(--color-error)">POL</div>
+      <div class="tl-body">
+        <div class="tl-date">January 2026</div>
+        <div class="tl-title">Canada Sovereign AI Compute Strategy Published</div>
+        <div class="tl-desc">Innovation, Science and Economic Development Canada publishes the Sovereign AI Compute Strategy, committing $2.4B in NRC and allied funding for Canadian AI infrastructure over five years. Explicitly identifies defence and national security workloads as priority use cases. Creates the policy basis for classifying AI compute as a strategic national asset.</div>
+        <div class="tl-footer">
+          <span class="badge badge-pol">Policy</span>
+          <span class="badge badge-traction">Institutional Traction</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: ISED Canada, January 2026 — <em>Why it matters:</em> Classifies domestic AI infrastructure as a strategic national asset — legitimising the compute layer of any sovereign defence AI stack and strengthening the institutional conditions for classified-capable AI development in Canada.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="part" data-actor="ECO">
+      <div class="tl-dot" style="background:var(--color-gold-highlight);color:var(--color-gold)">PART</div>
+      <div class="tl-body">
+        <div class="tl-date">January 2026</div>
+        <div class="tl-title">Kraken Robotics — NATO Mine Countermeasures Contract Extension</div>
+        <div class="tl-desc">Kraken Robotics (NL) receives a multi-year extension to its NATO Allied Mine Countermeasures contract, validating Canadian autonomous underwater vehicle capability at the alliance level. Kraken's AquaPix synthetic aperture sonar and MUSCLE USV are now deployed across six NATO navies, establishing export precedent.</div>
+        <div class="tl-footer">
+          <span class="badge badge-contract">Contract</span>
+          <span class="badge badge-traction">Institutional Traction</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: Kraken Robotics investor release, January 2026 — <em>Why it matters:</em> Demonstrates that Canadian autonomy firms can achieve NATO contract-level operational traction — the strongest current proof point that the ecosystem's export and allied-relevance ambitions are achievable.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="part" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-gold-highlight);color:var(--color-gold)">PART</div>
+      <div class="tl-body">
+        <div class="tl-date">February 2026</div>
+        <div class="tl-title">DD–CAE Simulation Integration Partnership</div>
+        <div class="tl-desc">DD and CAE Inc. announce a joint development agreement to integrate DD's ACP platform with CAE's defence simulation and digital twin environments. Allows CAF operators to train on DD ACP interfaces within CAE's existing simulator infrastructure. Positions ACP as the live-to-synthetic integration layer for Canadian autonomous systems training.</div>
+        <div class="tl-footer">
+          <span class="badge badge-part">Partnership</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: CAE/DD joint release, February 2026 — <em>Why it matters:</em> Connects a new-generation autonomous systems platform with an established Canadian simulation prime — creating a live-to-synthetic integration pathway that strengthens Canada's training infrastructure for autonomous systems at the ecosystem level.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="part" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-gold-highlight);color:var(--color-gold)">PART</div>
+      <div class="tl-body">
+        <div class="tl-date">February 2026</div>
+        <div class="tl-title">DD Advisory Board — Cross-Domain Senior Appointments</div>
+        <div class="tl-desc">DD expands its advisory board with confirmed appointments: former Lockheed Canada VP (procurement networks), retired RCAF LGen (CAF operational credibility), former CSIS director (intelligence/cyber networks), NATO DIANA alumnus (allied access). Board composition is explicitly designed for procurement navigation and allied market entry.</div>
+        <div class="tl-footer">
+          <span class="badge badge-part">Positioning</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot med"></div>Medium confidence</div>
+        </div>
+        <div class="tl-source">Source: DD LinkedIn / press, February 2026 — <em>Why it matters:</em> Cross-domain senior advisory appointments signal that procurement-navigation capability is being built into emerging defence firms — a marker of ecosystem maturation beyond pure product development.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="fund" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-primary-highlight);color:var(--color-primary)">FUND</div>
+      <div class="tl-body">
+        <div class="tl-date">March 2026</div>
+        <div class="tl-title">DD: $50M ACP Platform Investment Round</div>
+        <div class="tl-desc">Dominion Dynamics closes a $50M round exclusively for ACP platform development and manufacturing scale-up. Investors: ONE9 Ventures (lead), Kensington Capital, and an unnamed "allied nation defence fund." Round values DD at an undisclosed but reportedly $280–300M post-money. Round structure includes strategic rights clauses that restrict foreign control.</div>
+        <div class="tl-footer">
+          <span class="badge badge-fund">Financing</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: DD press release, March 2026 — <em>Why it matters:</em> $50M at Series A-equivalent scale is significant capital formation for Canadian defence tech — one of several 2025–26 signals that institutional investors are building a genuine defence thesis in Canada, not just funding adjacents.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="coal" data-actor="DD">
+      <div class="tl-dot" style="background:var(--color-purple-highlight,var(--color-surface-offset-2));color:var(--color-purple)">COAL</div>
+      <div class="tl-body">
+        <div class="tl-date">March 2026</div>
+        <div class="tl-title">Canadian Autonomous Defence Consortium (CADC) — Co-founded by DD</div>
+        <div class="tl-desc">Dominion Dynamics co-founds the Canadian Autonomous Defence Consortium with Calian Group, Kraken Robotics, and 49North Defence as charter members. CADC mandate: coordinated DIA engagement, joint export market development, shared classified-capable testing infrastructure, and unified voice on procurement reform. First meeting March 2026.</div>
+        <div class="tl-footer">
+          <span class="badge badge-coal">Coalition</span>
+          <span class="badge badge-unproven">Procurement Relevance Not Yet Proven</span>
+          <div class="conf"><div class="conf-dot med"></div>Medium confidence</div>
+        </div>
+        <div class="tl-source">Source: CADC/DD release, March 2026 — <em>Why it matters:</em> The first formal cross-firm ecosystem coordination body — an early indicator that Canadian defence tech firms are attempting to move from isolated positioning to coordinated sector engagement. Whether CADC produces joint procurement outcomes is the key open question.</div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-type="pol" data-actor="GOV">
+      <div class="tl-dot" style="background:var(--color-error-highlight);color:var(--color-error)">POL</div>
+      <div class="tl-body">
+        <div class="tl-date">March 23–26, 2026</div>
+        <div class="tl-title">DSRB Multilateral Session — 18 Nations, Montreal</div>
+        <div class="tl-desc">Defence Security Research Board convenes its spring multilateral session in Montreal with 18 allied nations. Agenda includes autonomous systems interoperability standards, classified AI data-sharing frameworks, and procurement alignment. Canada hosts for the first time. DD and CADC members participate as invited industry observers.</div>
+        <div class="tl-footer">
+          <span class="badge badge-pol">Policy / Allied</span>
+          <span class="badge badge-credible">Credible Movement</span>
+          <div class="conf"><div class="conf-dot hi"></div>High confidence</div>
+        </div>
+        <div class="tl-source">Source: DND/DSRB communiqué, March 23–26, 2026 — <em>Why it matters:</em> Canada hosting DSRB with 18 allied nations signals growing allied recognition of Canada's autonomous systems and sovereign AI development — strengthening the conditions for allied procurement access and interoperability standard-setting.</div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</div>
+
+<!-- ECOSYSTEM MAP PANEL -->
+<div class="panel" id="panel-ecosystem">
+  <div class="section-heading">Ecosystem Map — Canadian Defence Tech Stack
+    <span>18 actors mapped by function. Hover cards for detail. Filter by layer.</span>
+  </div>
+  <div class="filter-bar">
+    <span class="filter-label">Layer:</span>
+    <span class="filter-chip active" onclick="filterEco('all',this)">All</span>
+    <span class="filter-chip" onclick="filterEco('anchor',this)">Anchor / Neo-Prime</span>
+    <span class="filter-chip" onclick="filterEco('compute',this)">Compute / AI</span>
+    <span class="filter-chip" onclick="filterEco('autonomy',this)">Autonomy / Drone</span>
+    <span class="filter-chip" onclick="filterEco('sim',this)">Simulation</span>
+    <span class="filter-chip" onclick="filterEco('isr',this)">Space / ISR / Sensing</span>
+    <span class="filter-chip" onclick="filterEco('c2',this)">C2 / Software</span>
+    <span class="filter-chip" onclick="filterEco('capital',this)">Capital</span>
+    <span class="filter-chip" onclick="filterEco('gov',this)">Gov / Enabler</span>
+  </div>
+
+  <div class="legend mb-4">
+    <div class="legend-item"><div class="legend-dot" style="background:#e8af34"></div>Anchor / Neo-Prime</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#4f98a3"></div>Compute / AI</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#6daa45"></div>Autonomy / Drone</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a86fdf"></div>Simulation</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5591c7"></div>Space / ISR</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d163a7"></div>C2 / Software</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#c9723e"></div>Capital</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7a7875"></div>Gov / Enabler</div>
+  </div>
+
+  <div class="eco-grid" id="eco-grid">
+
+    <!-- ANCHOR -->
+    <div class="eco-node" data-cat="anchor">
+      <div class="eco-tag"><div class="eco-dot" style="background:#e8af34"></div>Anchor / Neo-Prime</div>
+      <div class="eco-name">Dominion Dynamics</div>
+      <div class="eco-loc">Ottawa, ON · Founded ~2023</div>
+      <div class="eco-desc">Developing the Autonomous Command Platform (ACP) — a multi-domain AI orchestration layer for heterogeneous autonomous systems. Co-founder of CADC. $54M+ raised. One of several firms positioning for DIA strategic partner designation in the AI/autonomy pillar.</div>
+      <div class="eco-badges">
+        <span class="badge badge-fund">$54M raised</span>
+        <span class="badge badge-credible">Integration Positioning</span>
+        <span class="badge badge-signal">DIA Q3 2026</span>
+      </div>
+    </div>
+
+    <!-- COMPUTE / AI -->
+    <div class="eco-node" data-cat="compute">
+      <div class="eco-tag"><div class="eco-dot" style="background:#4f98a3"></div>Compute / AI Infrastructure</div>
+      <div class="eco-name">Denvr Dataworks</div>
+      <div class="eco-loc">Calgary, AB</div>
+      <div class="eco-desc">Canada's largest private GPU cluster. Provides sovereign AI compute with Canadian data residency. MOU with DD for classified-capable workloads. ISED partner under Sovereign AI Compute Strategy.</div>
+      <div class="eco-badges">
+        <span class="badge badge-traction">Operational</span>
+        <span class="badge badge-part">DD MOU Nov 2025</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="compute">
+      <div class="eco-tag"><div class="eco-dot" style="background:#4f98a3"></div>AI Foundation / Inference</div>
+      <div class="eco-name">Cohere Inc.</div>
+      <div class="eco-loc">Toronto, ON</div>
+      <div class="eco-desc">Enterprise AI / LLM provider. Selected as CPSP (Canadian Procurement Software Platform) pilot partner. Command R models deployed for government NL-to-structured-data workloads. Critical for AI layer sovereignty if maintained domestically.</div>
+      <div class="eco-badges">
+        <span class="badge badge-traction">CPSP Pilot Active</span>
+        <span class="badge badge-signal">Partial Sovereignty</span>
+      </div>
+    </div>
+
+    <!-- AUTONOMY -->
+    <div class="eco-node" data-cat="autonomy">
+      <div class="eco-tag"><div class="eco-dot" style="background:#6daa45"></div>Maritime Autonomy</div>
+      <div class="eco-name">Kraken Robotics</div>
+      <div class="eco-loc">St. John's, NL</div>
+      <div class="eco-desc">Autonomous underwater vehicles (AquaPix SAR, MUSCLE USV). NATO Allied Mine Countermeasures contract. Deployed with six NATO navies. CADC charter member. Export-proven — a model for how Canadian autonomy firms can achieve NATO operational traction.</div>
+      <div class="eco-badges">
+        <span class="badge badge-traction">NATO Contract</span>
+        <span class="badge badge-coal">CADC Charter</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="autonomy">
+      <div class="eco-tag"><div class="eco-dot" style="background:#6daa45"></div>Counter-Drone / Hypersonics</div>
+      <div class="eco-name">North Vector Dynamics</div>
+      <div class="eco-loc">Ottawa, ON</div>
+      <div class="eco-desc">Counter-UAS and directed-energy point-defence systems. Early-stage. Funded through IDEaS. Advisory overlap with DD. Targeting NORAD modernisation procurement pipeline.</div>
+      <div class="eco-badges">
+        <span class="badge badge-signal">Early Stage</span>
+        <span class="badge badge-fund">IDEaS funded</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="autonomy">
+      <div class="eco-tag"><div class="eco-dot" style="background:#6daa45"></div>UAS / Tactical Drone</div>
+      <div class="eco-name">Pegasus Drones</div>
+      <div class="eco-loc">Montréal, QC</div>
+      <div class="eco-desc">Fixed-wing and rotary tactical drones for Arctic and maritime ISR. IRAP-funded. Participating in CAF northern drone trials. ACP integration candidate.</div>
+      <div class="eco-badges">
+        <span class="badge badge-signal">Signal Only</span>
+        <span class="badge badge-fund">IRAP</span>
+      </div>
+    </div>
+
+    <!-- SIMULATION -->
+    <div class="eco-node" data-cat="sim">
+      <div class="eco-tag"><div class="eco-dot" style="background:#a86fdf"></div>Simulation / Digital Twin</div>
+      <div class="eco-name">CAE Inc.</div>
+      <div class="eco-loc">Montréal, QC · TSX: CAE</div>
+      <div class="eco-desc">Global simulation prime. F-35 Canada training system incumbent. Joint development agreement with DD (Feb 2026) to integrate ACP into CAE simulation environment. Critical DD partnership — CAE provides DND procurement credibility. 2026 revenue ~$4.5B.</div>
+      <div class="eco-badges">
+        <span class="badge badge-traction">Established Prime</span>
+        <span class="badge badge-part">DD JDA Feb 2026</span>
+      </div>
+    </div>
+
+    <!-- ISR / SPACE -->
+    <div class="eco-node" data-cat="isr">
+      <div class="eco-tag"><div class="eco-dot" style="background:#5591c7"></div>Space / ISR</div>
+      <div class="eco-name">MDA Space</div>
+      <div class="eco-loc">Brampton, ON · TSX: MDA</div>
+      <div class="eco-desc">Satellite systems prime. RADARSAT constellation operator. Growing defence ISR revenue stream. Key sovereign space layer actor. Strategic relationship with DND and CSA.</div>
+      <div class="eco-badges">
+        <span class="badge badge-traction">Established Prime</span>
+        <span class="badge badge-part">DND/CSA Partner</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="isr">
+      <div class="eco-tag"><div class="eco-dot" style="background:#5591c7"></div>Defence Intelligence / ISR</div>
+      <div class="eco-name">49North Defence</div>
+      <div class="eco-loc">Ottawa, ON</div>
+      <div class="eco-desc">Intelligence, geospatial analytics, and multi-domain ISR fusion. CADC charter member. Close advisory overlap with DD leadership (two shared board advisors). Targets CAF J2/J3 intelligence workflows.</div>
+      <div class="eco-badges">
+        <span class="badge badge-coal">CADC Charter</span>
+        <span class="badge badge-credible">ISR Integration</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="isr">
+      <div class="eco-tag"><div class="eco-dot" style="background:#5591c7"></div>Sovereign Space Launch</div>
+      <div class="eco-name">NordSpace</div>
+      <div class="eco-loc">Toronto, ON</div>
+      <div class="eco-desc">Small satellite launch provider. Targeting Canadian sovereign launch capability — currently dependent on foreign launch. NRC-funded. Pre-operational.</div>
+      <div class="eco-badges">
+        <span class="badge badge-signal">Pre-Operational</span>
+        <span class="badge badge-fund">NRC Funded</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="isr">
+      <div class="eco-tag"><div class="eco-dot" style="background:#5591c7"></div>Propulsion / Launch</div>
+      <div class="eco-name">Reaction Dynamics</div>
+      <div class="eco-loc">Longueuil, QC</div>
+      <div class="eco-desc">Hybrid rocket propulsion. SPAR 1 test vehicle launched 2025. BDC-funded. Defence dual-use propulsion for hypersonics. Early stage but technically credible.</div>
+      <div class="eco-badges">
+        <span class="badge badge-signal">Early Stage</span>
+        <span class="badge badge-fund">BDC Platform</span>
+      </div>
+    </div>
+
+    <!-- C2 / SOFTWARE -->
+    <div class="eco-node" data-cat="c2">
+      <div class="eco-tag"><div class="eco-dot" style="background:#d163a7"></div>C5ISRT Orchestration</div>
+      <div class="eco-name">Calian Group</div>
+      <div class="eco-loc">Ottawa, ON · TSX: CGY</div>
+      <div class="eco-desc">C5ISRT (Command, Control, Communications, Computers, Cyber, ISR, Targeting) systems integrator. NATO-deployed. CADC charter member. ~$800M revenue. Established DND procurement relationships. Key ecosystem anchor for institutional credibility.</div>
+      <div class="eco-badges">
+        <span class="badge badge-traction">NATO Deployed</span>
+        <span class="badge badge-coal">CADC Charter</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="c2">
+      <div class="eco-tag"><div class="eco-dot" style="background:#d163a7"></div>C2 / Battle Management</div>
+      <div class="eco-name">Tacteris</div>
+      <div class="eco-loc">Ottawa, ON</div>
+      <div class="eco-desc">Command and control software for Canadian ground forces. CAF-tested. IRAP-funded. Battle management layer that could integrate with DD ACP. Watch for ACP integration announcement.</div>
+      <div class="eco-badges">
+        <span class="badge badge-signal">Signal Only</span>
+        <span class="badge badge-fund">IRAP</span>
+      </div>
+    </div>
+
+    <!-- CAPITAL -->
+    <div class="eco-node" data-cat="capital">
+      <div class="eco-tag"><div class="eco-dot" style="background:#c9723e"></div>Venture Capital</div>
+      <div class="eco-name">ONE9 Ventures</div>
+      <div class="eco-loc">Toronto, ON</div>
+      <div class="eco-desc">Lead investor in DD ($4M pre-seed, co-lead $50M ACP round). Defence-adjacent thesis. Portfolio includes two other CADC-adjacent firms. Structuring defence tech as distinct fund category.</div>
+      <div class="eco-badges">
+        <span class="badge badge-fund">DD Lead Investor</span>
+        <span class="badge badge-credible">Defence VC</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="capital">
+      <div class="eco-tag"><div class="eco-dot" style="background:#c9723e"></div>Institutional Capital</div>
+      <div class="eco-name">Kensington Capital</div>
+      <div class="eco-loc">Toronto, ON</div>
+      <div class="eco-desc">Co-investor in DD at pre-seed and ACP round. Brings balance sheet credibility and access to pension fund limited partners. Key for scale-up capital mobilisation.</div>
+      <div class="eco-badges">
+        <span class="badge badge-fund">DD Co-Investor</span>
+        <span class="badge badge-credible">Scale-Up Capital</span>
+      </div>
+    </div>
+
+    <!-- GOV / ENABLER -->
+    <div class="eco-node" data-cat="gov">
+      <div class="eco-tag"><div class="eco-dot" style="background:#7a7875"></div>Procurement Authority</div>
+      <div class="eco-name">Defence Investment Agency (DIA)</div>
+      <div class="eco-loc">Ottawa, ON · Est. Jan 2026</div>
+      <div class="eco-desc">New DND body with mandate to designate "preferred strategic partners" and expedite procurement. Strategic partner designation (Q3 2026) is the most important near-term institutional gate for DD and CADC members.</div>
+      <div class="eco-badges">
+        <span class="badge badge-pol">Est. Jan 2026</span>
+        <span class="badge badge-signal">Q3 2026 Gate</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="gov">
+      <div class="eco-tag"><div class="eco-dot" style="background:#7a7875"></div>Innovation Accelerator</div>
+      <div class="eco-name">NATO DIANA (Canada Node)</div>
+      <div class="eco-loc">Halifax / Ottawa Node</div>
+      <div class="eco-desc">NATO Defence Innovation Accelerator for the North Atlantic. Canadian node in Halifax provides allied-market access and NATO interoperability testing for Canadian defence tech firms. DD advisory board includes a DIANA alumnus.</div>
+      <div class="eco-badges">
+        <span class="badge badge-part">Allied Access</span>
+        <span class="badge badge-credible">DD Advisory Link</span>
+      </div>
+    </div>
+
+    <div class="eco-node" data-cat="gov">
+      <div class="eco-tag"><div class="eco-dot" style="background:#7a7875"></div>Defence R&D / IDEaS</div>
+      <div class="eco-name">DRDC / IDEaS Program</div>
+      <div class="eco-loc">Ottawa, ON</div>
+      <div class="eco-desc">Defence Research and Development Canada's Innovation for Defence Excellence and Security (IDEaS) program. Key early-stage validation and funding mechanism for the ecosystem. Provides classified research access and DRDC scientist collaboration.</div>
+      <div class="eco-badges">
+        <span class="badge badge-fund">Validation Funding</span>
+        <span class="badge badge-pol">DRDC / DND</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STRATEGIC SHIFTS PANEL -->
+<div class="panel" id="panel-shifts">
+  <div class="section-heading">Strategic Shifts — Evidence Tracker
+    <span>Each shift is assessed for evidence, what changed, what remains unproven, and contradictions.</span>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-hdr" onclick="toggleShift(this)">
+      <div class="shift-name">Shift 1: Startup → Integrator</div>
+      <div style="display:flex;gap:var(--space-2);align-items:center">
+        <span class="badge badge-credible">Credible Movement</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shift-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="shift-body">
+      <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-4);line-height:1.5">DD has moved from a single-product (AuraNet drone mesh) company to a multi-domain platform integrator (ACP) that claims to orchestrate heterogeneous autonomous systems. This is a structural repositioning, not just a rebranding.</p>
+      <div class="shift-grid">
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-success)">Evidence For</div>
+          <ul>
+            <li class="pro">AuraNet → ACP platform pivot announced Dec 2025</li>
+            <li class="pro">CAE JDA creates genuine integration use case (Feb 2026)</li>
+            <li class="pro">$50M ACP round validates integrator thesis with investors</li>
+            <li class="pro">Advisory board includes ex-Lockheed VP (prime-side integration experience)</li>
+            <li class="pro">CADC co-founder role positions DD as ecosystem convener</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-warning)">What Remains Unproven</div>
+          <ul>
+            <li class="con">No deployed ACP system with CAF or allied force</li>
+            <li class="con">Integration with non-DD autonomous systems undemonstrated</li>
+            <li class="con">Classification accreditation for ACP not yet public</li>
+            <li class="con">Revenue from integration (vs. product sales) still zero</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-error)">Contradictions / Gaps</div>
+          <ul>
+            <li class="con">Company is 2–3 years old — integrators typically take 8–15 years to establish</li>
+            <li class="con">ACP "integration" may still mean DD-only system with API hooks</li>
+            <li class="con">No independent technical validation of multi-vendor interoperability</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-hdr" onclick="toggleShift(this)">
+      <div class="shift-name">Shift 2: Product → Platform/Stack</div>
+      <div style="display:flex;gap:var(--space-2);align-items:center">
+        <span class="badge badge-credible">Credible Movement</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shift-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="shift-body">
+      <div class="shift-grid">
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-success)">Evidence For</div>
+          <ul>
+            <li class="pro">DD–Denvr compute MOU creates sovereign infrastructure layer</li>
+            <li class="pro">DD–CAE simulation layer creates training/synthetic environment</li>
+            <li class="pro">CADC brings Calian (C5ISRT) and Kraken (autonomy) as stack co-components</li>
+            <li class="pro">49North (ISR fusion) and DD (C2) create potential vertical integration</li>
+            <li class="pro">Cohere CPSP + Denvr compute = sovereign AI inference pathway</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-warning)">What Remains Unproven</div>
+          <ul>
+            <li class="con">No demonstrated end-to-end stack operation in operational scenario</li>
+            <li class="con">Data standards / API contracts between stack layers undefined publicly</li>
+            <li class="con">Classified interoperability (SECRET / TS-SCI level) not addressed</li>
+            <li class="con">CAF procurement requires each layer to be independently qualified</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-error)">Contradictions / Gaps</div>
+          <ul>
+            <li class="con">Each CADC firm competes independently — no joint offering announced</li>
+            <li class="con">Calian already has prime relationships — may not need DD as integrator</li>
+            <li class="con">Stack coordination may be market positioning rather than technical architecture</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-hdr" onclick="toggleShift(this)">
+      <div class="shift-name">Shift 3: Vendor → Strategic Partner</div>
+      <div style="display:flex;gap:var(--space-2);align-items:center">
+        <span class="badge badge-signal">Signal Only</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shift-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="shift-body">
+      <div class="shift-grid">
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-success)">Evidence For</div>
+          <ul>
+            <li class="pro">DIA strategic partner framework specifically targets AI/autonomy firms</li>
+            <li class="pro">DD advisory board composition designed for strategic partner pathway</li>
+            <li class="pro">DSRB participation as industry observer (March 2026)</li>
+            <li class="pro">CADC positions DD as spokesperson for autonomous defence sector</li>
+            <li class="pro">CAF field trial (Oct 2025) creates operational relationship</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-warning)">What Remains Unproven</div>
+          <ul>
+            <li class="con">DIA has not designated any preferred partners yet (Q3 2026 window)</li>
+            <li class="con">No classified development contract with DND</li>
+            <li class="con">No security clearance facility (FSC) reported for DD facilities</li>
+            <li class="con">No standing offer or supply arrangement with PSPC</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-error)">Contradictions / Gaps</div>
+          <ul>
+            <li class="con">Strategic partner designation requires proven delivery history — DD lacks this</li>
+            <li class="con">Large primes (L3, Thales, General Dynamics Canada) will compete for same designations</li>
+            <li class="con">Minority Parliament risk could delay or reset DIA partner framework</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-hdr" onclick="toggleShift(this)">
+      <div class="shift-name">Shift 4: Isolated Firms → Ecosystem Coordination</div>
+      <div style="display:flex;gap:var(--space-2);align-items:center">
+        <span class="badge badge-unproven">Procurement Relevance Not Yet Proven</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shift-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="shift-body">
+      <div class="shift-grid">
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-success)">Evidence For</div>
+          <ul>
+            <li class="pro">CADC formation (March 2026) — first formal cross-firm body</li>
+            <li class="pro">Shared advisory overlap between DD, 49North, Calian</li>
+            <li class="pro">Overlapping investor base (ONE9 across multiple CADC adjacents)</li>
+            <li class="pro">DSRB participation as coordinated industry delegation</li>
+            <li class="pro">BOREALIS program explicitly designed for consortium participation</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-warning)">What Remains Unproven</div>
+          <ul>
+            <li class="con">CADC has produced no joint procurement bid or technical output yet</li>
+            <li class="con">Shared testing infrastructure: announced, not yet operational</li>
+            <li class="con">Export coordination: aspiration only at this stage</li>
+            <li class="con">Coordination may not survive individual competitive pressures</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-error)">Contradictions / Gaps</div>
+          <ul>
+            <li class="con">Each CADC firm is competing for overlapping DIA designations</li>
+            <li class="con">Calian is large enough to not need CADC for procurement access</li>
+            <li class="con">No precedent for this type of Canadian defence consortium succeeding</li>
+            <li class="con">Alliance formation may be primarily for investor signalling</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="shift-row">
+    <div class="shift-hdr" onclick="toggleShift(this)">
+      <div class="shift-name">Shift 5: Signalling → Institutional Traction</div>
+      <div style="display:flex;gap:var(--space-2);align-items:center">
+        <span class="badge badge-signal">Signal Only</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shift-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+    <div class="shift-body">
+      <div class="shift-grid">
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-success)">Evidence For</div>
+          <ul>
+            <li class="pro">$54M in capital raised is real institutional signal</li>
+            <li class="pro">CAE partnership converts signal to a deliverable JDA</li>
+            <li class="pro">DIA formal establishment creates real procurement pathway</li>
+            <li class="pro">CAF field trial (Oct 2025) is real operational exposure</li>
+            <li class="pro">BOREALIS and BDC platform provide real funding access</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-warning)">What Remains Unproven</div>
+          <ul>
+            <li class="con">No public contract award with CAF or DND</li>
+            <li class="con">No DIA preferred partner designation</li>
+            <li class="con">No export sale to allied nation</li>
+            <li class="con">No classified development contract</li>
+            <li class="con">CADC outputs: none yet</li>
+          </ul>
+        </div>
+        <div class="scol">
+          <div class="scol-title" style="color:var(--color-error)">Contradictions / Gaps</div>
+          <ul>
+            <li class="con">Capital raise does not equal procurement success</li>
+            <li class="con">Ecosystem formation does not equal operational integration</li>
+            <li class="con">Policy alignment does not equal contract award</li>
+            <li class="con">DD valuation (~$280–300M) may be ahead of delivery reality</li>
+            <li class="con">Minority parliament could fundamentally reset DIA/BOREALIS timelines</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- POLICY & PROCUREMENT PANEL -->
+<div class="panel" id="panel-policy">
+  <div class="section-heading">Policy &amp; Procurement Mechanisms
+    <span>11 mechanisms mapped by funding, validation, procurement access, strategic partner potential, and scale-up potential. POINT added as transition bridge.</span>
+  </div>
+  <div class="policy-grid">
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">Defence Industrial Strategy (DIS)</div>
+        <div class="p-amount">Framework — April 2024</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">Five-pillar capability framework (NORAD, space, cyber, Arctic, AI/autonomy) establishing which industrial sectors receive priority procurement treatment. Creates the political legitimacy for DD's positioning in AI/autonomy pillar.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-n">Indirect</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ High</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Framework</span></div>
+          <div class="pe"><strong>Strat. Partner</strong><span class="pe-y">✓ Enables</span></div>
+        </div>
+        <div class="p-note">Status: Active. Confidence: High. Enacted Apr 2024.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">Defence Investment Agency (DIA)</div>
+        <div class="p-amount">Procurement Reform — Est. Jan 2026</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">New DND body with mandate to designate "preferred strategic partners" in sovereign capability areas. Expedited procurement pathways (non-competitive for designated firms). ITB reform component. Summer 2026 first designation window — the single most important near-term gate for the ecosystem.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-n">Indirect</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ Maximum</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Direct</span></div>
+          <div class="pe"><strong>Strat. Partner</strong><span class="pe-y">✓ Designates</span></div>
+        </div>
+        <div class="p-note">Status: Constituted. First designation: Q3 2026. Risk: Minority Parliament delay.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">BOREALIS Program</div>
+        <div class="p-amount">~$800M over 5 years</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">Canadian sovereign AI and autonomous systems development program under DND/DRDC. Funds consortium-based development of classified-capable AI systems for defence. Explicitly designed for multi-firm consortia — CADC is structurally positioned to bid. Not yet open for applications (expected H2 2026).</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-y">✓ Direct</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ High</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Consortium</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-y">✓ High</span></div>
+        </div>
+        <div class="p-note">Status: Announced. Applications expected H2 2026. Key CADC target.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">Defence Innovation Secure Hubs (DISH)</div>
+        <div class="p-amount">Infrastructure — 2025 onward</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">Classified-capable innovation labs co-located with DRDC facilities. Provides security-cleared development environments for private sector firms without requiring firms to build their own Facility Security Clearance infrastructure. Critical enabler for DD and stack firms to develop classified-capable ACP variants.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-n">Indirect</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ Security</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Enables CLASS</span></div>
+          <div class="pe"><strong>Strat. Partner</strong><span class="pe-y">✓ Prerequisite</span></div>
+        </div>
+        <div class="p-note">Status: 3 hubs operational (Ottawa, Halifax, Calgary). DD engagement: unconfirmed.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">IDEaS Program (DRDC)</div>
+        <div class="p-amount">~$1.6B over 20 years</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">Innovation for Defence Excellence and Security — DRDC's challenge-based funding program. Provides non-repayable contributions to Canadian firms and researchers. North Vector Dynamics confirmed IDEaS recipient. Key early-stage validation mechanism for unproven technology before DIA engagement.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-y">✓ Non-repayable</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ DRDC endorsed</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-n">Indirect</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-n">Limited</span></div>
+        </div>
+        <div class="p-note">Status: Active, ongoing. Best for early-stage firms in ecosystem.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">IRAP / DI Assist (NRC)</div>
+        <div class="p-amount">$900M+ annually</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">Industrial Research Assistance Program — NRC's primary SME R&amp;D support program. Confirmed funding for Pegasus Drones and Tacteris. DI Assist is a new "defence-innovation" stream of IRAP with faster processing and defence-specific milestones. Gateway for early-stage firms before BDC/IDEaS engagement.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-y">✓ Direct SME</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ NRC</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-n">Indirect</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-n">Limited</span></div>
+        </div>
+        <div class="p-note">Status: Active. DI Assist stream new in 2025. Key for Pegasus, Tacteris.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">BDC Defence &amp; Security Platform</div>
+        <div class="p-amount">$4B platform — Nov 2025</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">BDC's dedicated $4B defence and security investment vehicle. Provides debt and equity to SMEs and mid-size firms in the defence sector. Targets scale-up stage (post-seed, pre-prime). Reaction Dynamics confirmed BDC portfolio. Expected to fund CADC-adjacent companies through 2026–2028.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-y">✓ Scale Capital</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ BDC endorsed</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-n">Indirect</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-y">✓ High</span></div>
+        </div>
+        <div class="p-note">Status: Active. Largest single capital commitment in Canadian defence history.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">NATO DIANA</div>
+        <div class="p-amount">Allied Accelerator</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">NATO Defence Innovation Accelerator for the North Atlantic. Canadian Halifax node provides allied-market access, NATO interoperability testing, and dual-use technology validation. DD advisory board includes a DIANA alumnus providing network access. Key pathway for Five Eyes / European export.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-y">✓ NATO grants</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ Allied</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Allied Nations</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-y">✓ Export</span></div>
+        </div>
+        <div class="p-note">Status: Active. Halifax node operational. DD: indirect access via advisory board.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">Industrial &amp; Technological Benefits (ITB)</div>
+        <div class="p-amount">Policy Framework</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">ITB rules require foreign primes on major DND contracts to invest a portion of contract value in Canadian industrial offsets. DIA reform may change how ITB credits are allocated — potentially favouring CADC-adjacent firms as sub-prime beneficiaries on major platform procurements (F-35, CJSTAR, NORAD sensors).</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-y">✓ Indirect</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-n">Limited</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Sub-prime</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-y">✓ Leverage</span></div>
+        </div>
+        <div class="p-note">Status: Reform underway. ITB still primarily favours established firms. Watch DIA reform.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">Sovereign AI Compute Strategy</div>
+        <div class="p-amount">$2.4B — ISED, Jan 2026</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">ISED Canada's five-year sovereign AI compute strategy explicitly designating AI infrastructure as strategic national asset. Funds NRC and allied investments in Canadian GPU clusters and inference infrastructure. Denvr Dataworks is the primary private-sector beneficiary. Legitimises the compute layer of the sovereign stack.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-y">✓ Compute infra</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ Sovereign asset</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Preferred CDN</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-y">✓ Denvr/stack</span></div>
+        </div>
+        <div class="p-note">Status: Active. Denvr primary beneficiary. Underpins entire stack sovereignty claim.</div>
+      </div>
+    </div>
+
+    <div class="p-card">
+      <div class="p-head">
+        <div class="p-name">POINT — Procurement &amp; Operationalization of Innovation &amp; New Technology</div>
+        <div class="p-amount">Transition Bridge — 2025–26 onward</div>
+      </div>
+      <div class="p-body">
+        <div class="p-desc">POINT is Canada's near-term mechanism for bridging the gap between validated prototype and limited operational acquisition — particularly for unmanned and autonomous systems (UxS) that have passed operational testing. It creates an expedited pathway from IDEaS/IRAP validation to limited DND procurement without requiring a full competitive process. POINT is the most actionable near-term transition tool for operationally-tested Canadian firms, but it does not resolve the broader innovation-to-procurement gap or substitute for full DIA strategic partner designation.</div>
+        <div class="p-efx">
+          <div class="pe"><strong>Funding</strong><span class="pe-n">Indirect</span></div>
+          <div class="pe"><strong>Validation</strong><span class="pe-y">✓ Ops-tested</span></div>
+          <div class="pe"><strong>Procurement Access</strong><span class="pe-y">✓ Limited Acq.</span></div>
+          <div class="pe"><strong>Scale-Up</strong><span class="pe-n">Partial only</span></div>
+        </div>
+        <div class="p-note">Status: Active. Best for UxS with CAF field trial history. Limitation: not a complete solution to the innovation-to-procurement gap.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SOVEREIGNTY PANEL -->
+<div class="panel" id="panel-sovereignty">
+  <div class="section-heading">Sovereignty Layer Assessment
+    <span>Each dimension rated for true sovereignty, partial sovereignty, or claimed-but-unvalidated. Bars are analytical estimates, not official metrics.</span>
+  </div>
+
+  <div class="legend mb-4">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--color-success)"></div>Fully Sovereign (validated)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--color-gold)"></div>Partially Sovereign (some dependency)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--color-warning)"></div>Claimed / Not Yet Validated</div>
+  </div>
+
+  <div class="card mb-6" style="padding:0;overflow:hidden">
+
+    <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface-offset);border-bottom:1px solid var(--color-divider)">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-faint)">Infrastructure Layer</span>
+    </div>
+
+    <div class="sov-row f-sov">
+      <div class="sov-lbl">Compute Infrastructure<div class="sov-sub">Denvr GPU cluster, Calgary AB</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:85%"></div></div><div class="sov-sub">Canadian data residency confirmed. Private ownership, no US hyperscaler dependency.</div></div>
+      <div class="sov-lvl"><span class="badge badge-traction">Full Sovereignty</span></div>
+    </div>
+
+    <div class="sov-row p-sov">
+      <div class="sov-lbl">AI Model Layer<div class="sov-sub">Cohere / CPSP</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:60%"></div></div><div class="sov-sub">Canadian HQ, but US VC investors raise jurisdictional questions. Model weights: partially sovereign.</div></div>
+      <div class="sov-lvl"><span class="badge badge-signal">Partial</span></div>
+    </div>
+
+    <div class="sov-row p-sov">
+      <div class="sov-lbl">Cloud/Hosting<div class="sov-sub">Mixed: Denvr + AWS GovCloud</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:45%"></div></div><div class="sov-sub">DD MOU moves DD workloads to Denvr. Transition incomplete. Some DD platform components still on US hyperscaler (unconfirmed).</div></div>
+      <div class="sov-lvl"><span class="badge badge-signal">Partial</span></div>
+    </div>
+
+    <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface-offset);border-bottom:1px solid var(--color-divider);border-top:1px solid var(--color-divider)">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-faint)">Platform Layer</span>
+    </div>
+
+    <div class="sov-row p-sov">
+      <div class="sov-lbl">ACP Platform IP<div class="sov-sub">Dominion Dynamics</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:70%"></div></div><div class="sov-sub">Wholly Canadian ownership. Round structure includes anti-foreign-control clauses. IP registered in Canada. Investor base is Canadian. Partial: unnamed "allied nation fund" in ACP round warrants monitoring.</div></div>
+      <div class="sov-lvl"><span class="badge badge-credible">Mostly Sovereign</span></div>
+    </div>
+
+    <div class="sov-row w-sov">
+      <div class="sov-lbl">Classification Accreditation<div class="sov-sub">SECRET-capable ACP</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:20%"></div></div><div class="sov-sub">No public DD Facility Security Clearance (FSC) confirmed. ACP for classified workloads is aspirational. DISH access partially substitutes, but DD-owned classified facility not confirmed.</div></div>
+      <div class="sov-lvl"><span class="badge badge-unproven">Claimed / Unvalidated</span></div>
+    </div>
+
+    <div class="sov-row f-sov">
+      <div class="sov-lbl">Simulation Environment<div class="sov-sub">CAE Inc.</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:90%"></div></div><div class="sov-sub">CAE is a Canadian prime with Canadian simulation infrastructure. DND's primary simulation partner for decades. Full sovereign status for the simulation layer.</div></div>
+      <div class="sov-lvl"><span class="badge badge-traction">Full Sovereignty</span></div>
+    </div>
+
+    <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface-offset);border-bottom:1px solid var(--color-divider);border-top:1px solid var(--color-divider)">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-faint)">Capability Layer</span>
+    </div>
+
+    <div class="sov-row f-sov">
+      <div class="sov-lbl">Maritime Autonomy<div class="sov-sub">Kraken Robotics</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:95%"></div></div><div class="sov-sub">Canadian company, Canadian IP, NATO-validated capability. Export-proven. Full sovereign status and export credibility confirmed.</div></div>
+      <div class="sov-lvl"><span class="badge badge-traction">Full Sovereignty</span></div>
+    </div>
+
+    <div class="sov-row f-sov">
+      <div class="sov-lbl">C5ISRT Integration<div class="sov-sub">Calian Group</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:88%"></div></div><div class="sov-sub">Canadian prime, NATO-deployed, TSX-listed with Canadian majority ownership. Some US-sourced subcomponents but integration layer is sovereign.</div></div>
+      <div class="sov-lvl"><span class="badge badge-traction">Full Sovereignty</span></div>
+    </div>
+
+    <div class="sov-row p-sov">
+      <div class="sov-lbl">Space / ISR<div class="sov-sub">MDA / 49North</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:65%"></div></div><div class="sov-sub">MDA operates RADARSAT — sovereign space asset. But launch dependency is foreign (SpaceX, etc.). 49North: Canadian IP, but launch and signals infrastructure have foreign dependencies.</div></div>
+      <div class="sov-lvl"><span class="badge badge-signal">Partial</span></div>
+    </div>
+
+    <div class="sov-row w-sov">
+      <div class="sov-lbl">Sovereign Space Launch<div class="sov-sub">NordSpace / Reaction Dynamics</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:15%"></div></div><div class="sov-sub">Pre-operational. Both firms are developing capabilities but neither has achieved orbit. Current sovereign launch capability: effectively zero.</div></div>
+      <div class="sov-lvl"><span class="badge badge-unproven">Claimed / Pre-Op</span></div>
+    </div>
+
+    <div style="padding:var(--space-3) var(--space-4);background:var(--color-surface-offset);border-bottom:1px solid var(--color-divider);border-top:1px solid var(--color-divider)">
+      <span style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-faint)">Allied Dependency Assessment</span>
+    </div>
+
+    <div class="sov-row p-sov">
+      <div class="sov-lbl">Allied Market Dependency<div class="sov-sub">US / Five Eyes / NATO</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:55%"></div></div><div class="sov-sub">The stack's business model depends on allied market access for scale. DSRB / DIANA pathways reduce but do not eliminate dependency on US approval for export-controlled technologies.</div></div>
+      <div class="sov-lvl"><span class="badge badge-signal">Managed Dependency</span></div>
+    </div>
+
+    <div class="sov-row p-sov">
+      <div class="sov-lbl">Foreign Prime Dependency<div class="sov-sub">US/EU primes as partners</div></div>
+      <div class="sov-bar-w"><div class="sov-bar"><div class="sov-fill" style="width:40%"></div></div><div class="sov-sub">ITB framework still routes significant value through foreign primes. CAE (Canadian) is the model to follow. But L3, Thales, GDC are still dominant in many DND programs.</div></div>
+      <div class="sov-lvl"><span class="badge badge-signal">Moderate Risk</span></div>
+    </div>
+
+  </div>
+
+  <!-- SOVEREIGNTY SUMMARY -->
+  <div class="section-heading">Sovereignty Claim Assessment
+    <span>Distinguishing genuine from claimed sovereignty</span>
+  </div>
+  <div class="three-col">
+    <div class="os-col">
+      <div class="os-title" style="color:var(--color-success)">✓ Truly Sovereign Capabilities</div>
+      <div class="os-item">Denvr compute infrastructure (Canadian, private, resident)</div>
+      <div class="os-item">CAE simulation (established, DND-integrated)</div>
+      <div class="os-item">Kraken maritime autonomy (NATO-validated, export-proven)</div>
+      <div class="os-item">Calian C5ISRT (NATO-deployed, Canadian prime)</div>
+      <div class="os-item">DD IP ownership (Canadian-controlled, anti-foreign clauses)</div>
+    </div>
+    <div class="os-col">
+      <div class="os-title" style="color:var(--color-gold)">⚠ Partially Sovereign Capabilities</div>
+      <div class="os-item">AI model layer (Cohere: Canadian HQ, US VC exposure)</div>
+      <div class="os-item">Cloud hosting (transition in progress, not complete)</div>
+      <div class="os-item">Space/ISR layer (Canadian assets, foreign launch dependency)</div>
+      <div class="os-item">Allied market access (necessary but introduces export control risk)</div>
+      <div class="os-item">ACP foreign sub-components (supply chain not fully disclosed)</div>
+    </div>
+    <div class="os-col">
+      <div class="os-title" style="color:var(--color-warning)">✗ Sovereignty Claims Not Yet Validated</div>
+      <div class="os-item">ACP SECRET-level classification accreditation (no FSC confirmed)</div>
+      <div class="os-item">Sovereign space launch capability (pre-operational)</div>
+      <div class="os-item">CADC as sovereign stack (aspirational; no joint operation)</div>
+      <div class="os-item">End-to-end sovereign kill chain (multi-vendor integration unproven)</div>
+      <div class="os-item">AI model training sovereignty (Cohere data residency not fully disclosed)</div>
+    </div>
+  </div>
+</div>
+
+<!-- WATCHLIST PANEL -->
+<div class="panel" id="panel-watchlist">
+  <div class="section-heading">Watchlist &amp; Near-Term Catalysts
+    <span>Signals that would validate or weaken the thesis. Monitor these in priority order.</span>
+  </div>
+
+  <div class="wl-grid">
+
+    <div class="wl-card" style="border-color:var(--color-error);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🔴 DIA Strategic Partner Designation</div>
+        <span class="badge badge-unproven">CRITICAL GATE</span>
+      </div>
+      <div class="wl-body">DD obtaining DIA "preferred strategic partner" designation in AI/autonomy would convert all prior signalling into institutional traction. Would unlock non-competitive procurement pathways, ITB reform benefits, and classified development contracts. Failure to receive designation by Q4 2026 would be a significant setback and could trigger investor concern.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Expected: Q3 2026</span>
+        <span class="wl-type" style="color:var(--color-error)">Procurement Relevance · Institutional Traction</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-error);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🔴 BOREALIS First RFP / Bid Award</div>
+        <span class="badge badge-unproven">CRITICAL GATE</span>
+      </div>
+      <div class="wl-body">BOREALIS program opening for applications (expected H2 2026) will reveal whether CADC's consortium structure is competitive against established integrators. A CADC/DD-inclusive award would be the single strongest proof of institutional traction for the ecosystem. A rejected bid would expose the gap between positioning and delivery credibility.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Expected: H2 2026</span>
+        <span class="wl-type" style="color:var(--color-error)">Procurement Relevance · Ecosystem Traction</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-warning);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🟠 DD Facility Security Clearance (FSC)</div>
+        <span class="badge badge-unproven">Sovereignty Gate</span>
+      </div>
+      <div class="wl-body">A confirmed DND/PSPC Facility Security Clearance for DD's Ottawa facility would validate the sovereign, classified-capable development claim. Without FSC, ACP's classification-readiness is aspirational. FSC is a prerequisite for any classified development contract. Look for Government of Canada Security Policy confirmation.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Unknown — watch H1 2026</span>
+        <span class="wl-type" style="color:var(--color-warning)">Capability · Sovereignty Validation</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-warning);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🟠 First DND/CAF Contract Award to DD</div>
+        <span class="badge badge-signal">Traction Signal</span>
+      </div>
+      <div class="wl-body">Any contract — including a standing offer, a Competitive Project Definition (CPD) phase, or a limited PSPC supply arrangement — would constitute the first genuine procurement traction event. Even a small ($2–5M) contract would validate the procurement pathway more than any advisory board appointment or investor round.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Possible H2 2026</span>
+        <span class="wl-type" style="color:var(--color-warning)">Procurement Relevance</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-gold);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🟡 CADC First Joint Deliverable</div>
+        <span class="badge badge-credible">Ecosystem Signal</span>
+      </div>
+      <div class="wl-body">CADC's value as an ecosystem coordinator depends on producing joint outputs — a shared classified testing facility opening, a joint BOREALIS bid submission, a coordinated procurement response, or a published interoperability framework. Without output, CADC risks being characterised as a lobbying body rather than an operational consortium.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Expected: Q3–Q4 2026</span>
+        <span class="wl-type" style="color:var(--color-gold)">Ecosystem Coordination</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-gold);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🟡 Allied Export / DIANA Cohort Entry</div>
+        <span class="badge badge-signal">Export Signal</span>
+      </div>
+      <div class="wl-body">DD or a CADC member entering a NATO DIANA cohort, obtaining a UK MOD or AUS LAND Forces evaluation contract, or achieving a Five Eyes interoperability test would signal allied market access beyond Canada. Kraken's NATO contract is the benchmark. Watch for UK/AUS/Nordic procurement engagement signals.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Possible 2026–2027</span>
+        <span class="wl-type" style="color:var(--color-gold)">Export · Allied Relevance</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-blue);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🔵 New Capital Raise (Series A equivalent)</div>
+        <span class="badge badge-credible">Investor Signal</span>
+      </div>
+      <div class="wl-body">A Series A raise of $80M+ with a new institutional investor — especially a US or allied nation defence fund, a sovereign wealth fund, or a strategic corporate investor (e.g., L3, CAE as strategic investor) — would provide the strongest investor-side institutional validation signal. Watch for unnamed "allied nation fund" in ACP round being identified.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Possible H2 2026 – H1 2027</span>
+        <span class="wl-type" style="color:var(--color-blue)">Financing · Institutional Validation</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-blue);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">🔵 Security-Cleared Talent Pipeline</div>
+        <span class="badge badge-signal">Capability Signal</span>
+      </div>
+      <div class="wl-body">Growing a team with existing DND/CSE/CSIS security clearances is a bottleneck for any defence tech company attempting classified work. Watch DD's hiring signals — ex-CAF, ex-DND STO, and DRDC scientists joining DD would signal genuine capability build for classified-capable development. Clearance transfer lead times run 6–18 months.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Ongoing — watch LinkedIn/hiring</span>
+        <span class="wl-type" style="color:var(--color-blue)">Capability · Talent</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-text-faint);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">⚫ Minority Parliament / Government Reset Risk</div>
+        <span class="badge badge-weak">Risk Factor</span>
+      </div>
+      <div class="wl-body">Canada's current minority Parliament creates structural risk for DIA framework continuation, BOREALIS implementation, and defence spending commitments. A confidence vote failure or early election could pause or reset the procurement reform agenda. The DIS, DIA, and BOREALIS are executive/regulatory — some are vulnerable to delay if cabinet priorities shift. Monitor federal confidence votes Q2–Q3 2026.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Active risk — ongoing</span>
+        <span class="wl-type" style="color:var(--color-text-muted)">Political Risk · Ecosystem Risk</span>
+      </div>
+    </div>
+
+    <div class="wl-card" style="border-color:var(--color-text-faint);border-left-width:3px">
+      <div class="wl-top">
+        <div class="wl-name">⚫ ACP Technical Credibility Challenge</div>
+        <span class="badge badge-weak">Risk Factor</span>
+      </div>
+      <div class="wl-body">DD's integrator positioning depends on ACP genuinely working across heterogeneous non-DD autonomous systems. If independent technical assessments, CAF exercise reports, or DRDC evaluations reveal ACP is DD-only with API stubs, the integrator thesis collapses. No independent technical review of ACP has been published. Watch for DRDC evaluation reports or CAF After Action Reports from 2026 exercises.</div>
+      <div class="wl-foot">
+        <span class="wl-timing">Watch 2026 CAF exercises</span>
+        <span class="wl-type" style="color:var(--color-text-muted)">Technical Credibility · Capability</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CONTRADICTIONS / WEAK EVIDENCE -->
+  <div class="section-heading" style="margin-top:var(--space-6)">Weak Evidence, Contradictions &amp; Unresolved Questions
+  </div>
+
+  <div class="contra">
+    <strong>No contract award with CAF or DND as of March 2026</strong>
+    <p>The most significant evidentiary gap. All claims of procurement relevance, strategic partner positioning, and institutional traction are pre-contract. The entire thesis rests on signals and positioning, not delivery history.</p>
+  </div>
+  <div class="contra">
+    <strong>DD valuation (~$280–300M post-ACP round) may be ahead of delivery reality</strong>
+    <p>Canadian defence tech companies rarely reach $280–300M valuations before a significant contract win. The valuation appears to price in DIA designation and BOREALIS success in advance. If either is delayed, valuation pressure may emerge.</p>
+  </div>
+  <div class="contra">
+    <strong>CADC ecosystem coordination vs. individual competitive pressures</strong>
+    <p>Calian (~$800M revenue) and CAE (~$4.5B revenue) have established DND relationships and do not need DD as an integrator. Their CADC participation may be strategic (advisory access, export coalition) rather than operational (joint procurement). The consortium's coherence under competitive pressure is untested.</p>
+  </div>
+  <div class="contra">
+    <strong>Unnamed "allied nation defence fund" in ACP round</strong>
+    <p>The undisclosed investor creates a sovereignty question. If this is a US, UK, or Israeli defence fund with anti-dilution or board observer rights, the anti-foreign-control narrative is weakened. Identity of this investor should be tracked.</p>
+  </div>
+  <div class="contra">
+    <strong>Platform pivot speed vs. engineering reality</strong>
+    <p>The AuraNet → ACP pivot (announced Dec 2025, eight months after the company's first capital raise) is architecturally ambitious for a company of DD's size. Multi-domain autonomous system integration is a hard technical problem that established primes have failed to solve. The timeline from announcement to operational deployment deserves scrutiny.</p>
+  </div>
+</div>
+
+<!-- SOURCES PANEL -->
+<div class="panel" id="panel-sources">
+  <div class="section-heading">Source Table &amp; Confidence Levels
+    <span>All claims in this dashboard trace to these sources. No unsourced claims included. Confidence assessed by source type and corroboration.</span>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+  <div style="overflow-x:auto">
+  <table class="data-table">
+    <thead><tr>
+      <th>#</th><th>Date</th><th>Source / Publisher</th><th>Claim Supported</th><th>Confidence</th><th>Type</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="td-mono">1</td><td class="td-date">Apr 2024</td><td class="td-src"><a href="https://www.canada.ca/en/department-national-defence/corporate/reports-publications/defence-industrial-strategy.html" target="_blank" rel="noopener">DND.gc.ca — Defence Industrial Strategy</a></td><td class="td-muted">Five-pillar DIS framework; AI/autonomy pillar; DIA mandate basis</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-pol">Primary — Gov</span></td></tr>
+      <tr><td class="td-mono">2</td><td class="td-date">Aug 2025</td><td class="td-src"><span>Dominion Dynamics — Pre-seed press release</span></td><td class="td-muted">$4M pre-seed round; ONE9/Kensington investors; AuraNet development</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-credible">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">3</td><td class="td-date">Oct 2025</td><td class="td-src"><span>DD / DND — CAF Northern Exercise statement</span></td><td class="td-muted">AuraNet CAF field trial; Arctic-adjacent conditions; qualified success</td><td><div class="conf"><div class="conf-dot med"></div>Medium</div></td><td><span class="badge badge-credible">Primary — Company/Gov</span></td></tr>
+      <tr><td class="td-mono">4</td><td class="td-date">Nov 2025</td><td class="td-src"><a href="https://www.bdc.ca" target="_blank" rel="noopener">BDC.ca — Defence Platform announcement</a></td><td class="td-muted">$4B BDC defence and security platform; SME and scale-up focus</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-pol">Primary — Gov</span></td></tr>
+      <tr><td class="td-mono">5</td><td class="td-date">Nov 2025</td><td class="td-src"><span>DD/Denvr — Joint MOU press release</span></td><td class="td-muted">Sovereign compute MOU; Denvr Canadian GPU cluster; SECRET workload intent</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-credible">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">6</td><td class="td-date">Dec 2025</td><td class="td-src"><span>Dominion Dynamics — website/investor materials</span></td><td class="td-muted">AuraNet → ACP platform pivot; integrator positioning; multi-domain C2</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-credible">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">7</td><td class="td-date">Jan 2026</td><td class="td-src"><a href="https://www.canada.ca/en/department-national-defence.html" target="_blank" rel="noopener">DND/Gov.ca — DIA formal establishment</a></td><td class="td-muted">DIA constituted under Bill C-78; preferred strategic partner designation framework; Q3 2026 window</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-pol">Primary — Gov</span></td></tr>
+      <tr><td class="td-mono">8</td><td class="td-date">Jan 2026</td><td class="td-src"><a href="https://ised-isde.canada.ca" target="_blank" rel="noopener">ISED Canada — Sovereign AI Compute Strategy</a></td><td class="td-muted">$2.4B sovereign AI compute; defence workload priority; Denvr as beneficiary</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-pol">Primary — Gov</span></td></tr>
+      <tr><td class="td-mono">9</td><td class="td-date">Jan 2026</td><td class="td-src"><span>Kraken Robotics — Investor release</span></td><td class="td-muted">NATO AMCM contract extension; AquaPix/MUSCLE deployment; six NATO navies</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-traction">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">10</td><td class="td-date">Feb 2026</td><td class="td-src"><span>CAE/DD — Joint development agreement release</span></td><td class="td-muted">CAE-DD JDA; ACP/simulation integration; CAF operator training</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-part">Primary — Companies</span></td></tr>
+      <tr><td class="td-mono">11</td><td class="td-date">Feb 2026</td><td class="td-src"><span>DD — LinkedIn/press announcements</span></td><td class="td-muted">Advisory board appointments: ex-Lockheed VP, RCAF LGen, ex-CSIS, DIANA alumnus</td><td><div class="conf"><div class="conf-dot med"></div>Medium</div></td><td><span class="badge badge-credible">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">12</td><td class="td-date">Mar 2026</td><td class="td-src"><span>Dominion Dynamics — $50M ACP round press release</span></td><td class="td-muted">$50M round; ONE9/Kensington lead; unnamed allied fund; anti-foreign-control clauses</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-fund">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">13</td><td class="td-date">Mar 2026</td><td class="td-src"><span>CADC/DD — Consortium launch release</span></td><td class="td-muted">CADC formation; charter members (Calian, Kraken, 49North); CADC mandate</td><td><div class="conf"><div class="conf-dot med"></div>Medium</div></td><td><span class="badge badge-coal">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">14</td><td class="td-date">Mar 23–26, 2026</td><td class="td-src"><a href="https://www.canada.ca/en/department-national-defence.html" target="_blank" rel="noopener">DND/DSRB — Montreal communiqué</a></td><td class="td-muted">DSRB 18-nation session; Canada host; DD/CADC industry observer status; autonomous systems standards</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-pol">Primary — Gov</span></td></tr>
+      <tr><td class="td-mono">15</td><td class="td-date">Various 2025–26</td><td class="td-src"><a href="https://www.nrc-cnrc.gc.ca/eng/irap" target="_blank" rel="noopener">NRC IRAP — program documentation</a></td><td class="td-muted">IRAP and DI Assist funding for Pegasus Drones, Tacteris; NRC $900M+ annual</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-pol">Primary — Gov</span></td></tr>
+      <tr><td class="td-mono">16</td><td class="td-date">2025–26</td><td class="td-src"><a href="https://www.drdc-rddc.gc.ca/en/ideas" target="_blank" rel="noopener">DRDC IDEaS — program website</a></td><td class="td-muted">IDEaS program structure; North Vector Dynamics confirmed recipient; DRDC validation role</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-pol">Primary — Gov</span></td></tr>
+      <tr><td class="td-mono">17</td><td class="td-date">2025–26</td><td class="td-src"><a href="https://www.cae.com" target="_blank" rel="noopener">CAE Inc. — annual reports / investor relations</a></td><td class="td-muted">CAE simulation capabilities; F-35 Canada training; DND prime relationship; $4.5B revenue</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-traction">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">18</td><td class="td-date">2025–26</td><td class="td-src"><a href="https://mdacorporation.com" target="_blank" rel="noopener">MDA Space — investor/corporate materials</a></td><td class="td-muted">RADARSAT operation; DND/CSA relationships; growing defence ISR revenue</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-traction">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">19</td><td class="td-date">2025–26</td><td class="td-src"><a href="https://www.calian.com" target="_blank" rel="noopener">Calian Group — corporate materials</a></td><td class="td-muted">C5ISRT capability; NATO deployment; ~$800M revenue; CADC membership</td><td><div class="conf"><div class="conf-dot hi"></div>High</div></td><td><span class="badge badge-traction">Primary — Company</span></td></tr>
+      <tr><td class="td-mono">20</td><td class="td-date">2025–26</td><td class="td-src"><span>NordSpace / Reaction Dynamics — corporate materials</span></td><td class="td-muted">Pre-operational sovereign space launch; NRC/BDC funding; SPAR 1 test vehicle</td><td><div class="conf"><div class="conf-dot lo"></div>Low–Med</div></td><td><span class="badge badge-signal">Primary — Company</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  </div>
+
+  <!-- CONFIDENCE LEGEND -->
+  <div class="card" style="margin-top:var(--space-4);padding:var(--space-4)">
+    <div class="card-title" style="margin-bottom:var(--space-3)">Confidence Level Definitions</div>
+    <div class="three-col">
+      <div><div class="conf" style="margin-bottom:var(--space-2)"><div class="conf-dot hi"></div><strong>High Confidence</strong></div><p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5">Sourced from primary government or company announcement. Cross-validated against at least one independent source. Factual claim (not assessment).</p></div>
+      <div><div class="conf" style="margin-bottom:var(--space-2)"><div class="conf-dot med"></div><strong>Medium Confidence</strong></div><p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5">Sourced from a primary release but not independently cross-validated, OR is an interpretation of a factual claim. Company self-reporting with limited external confirmation.</p></div>
+      <div><div class="conf" style="margin-bottom:var(--space-2)"><div class="conf-dot lo"></div><strong>Low Confidence</strong></div><p style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5">Early-stage company self-reporting, pre-operational claims, or assessments based on limited data. Requires corroboration before being treated as established fact.</p></div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- end content-area -->
+</div><!-- end main-area -->
+</div><!-- end app-shell -->
+
+<script>
+// Panel navigation
+const panelNames = {
+  overview: 'Thesis Monitor',
+  timeline: '1 · Timeline of Developments',
+  ecosystem: '2 · Ecosystem Map',
+  shifts: '3 · Strategic Shifts',
+  policy: '4 · Policy & Procurement',
+  sovereignty: '5 · Sovereignty Layer',
+  watchlist: '6 · Watchlist & Catalysts',
+  sources: 'Sources & Confidence'
+};
+
+function showPanel(id, navEl) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('topbar-title').textContent = panelNames[id] || id;
+  // Animate bars when sovereignty panel shows
+  if (id === 'sovereignty') animateBars();
+}
+
+// Timeline filtering
+let activeTypeFilter = 'all';
+let activeActorFilter = 'all';
+function filterTimeline(type, el) {
+  activeTypeFilter = type;
+  document.querySelectorAll('.filter-bar')[0].querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  applyTimelineFilters();
+}
+function filterTimelineActor(actor, el) {
+  activeActorFilter = actor;
+  document.querySelectorAll('.filter-bar')[0].querySelectorAll('.filter-chip').forEach(c => {
+    if(['DD','GOV','ECO','all'].some(a => c.onclick && c.onclick.toString().includes("Actor"))) {}
+  });
+  // Simpler approach: find second group chips
+  const chips = document.querySelectorAll('.filter-bar')[0].querySelectorAll('.filter-chip');
+  chips.forEach(c => {
+    const fn = c.getAttribute('onclick');
+    if (fn && fn.includes('Actor')) c.classList.remove('active');
+  });
+  el.classList.add('active');
+  applyTimelineFilters();
+}
+function applyTimelineFilters() {
+  document.querySelectorAll('.tl-item').forEach(item => {
+    const typeOk = activeTypeFilter === 'all' || item.dataset.type === activeTypeFilter;
+    const actorOk = activeActorFilter === 'all' || item.dataset.actor === activeActorFilter;
+    item.style.display = (typeOk && actorOk) ? '' : 'none';
+  });
+}
+
+// Ecosystem filtering
+function filterEco(cat, el) {
+  document.querySelectorAll('#panel-ecosystem .filter-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.eco-node').forEach(node => {
+    node.style.display = (cat === 'all' || node.dataset.cat === cat) ? '' : 'none';
+  });
+}
+
+// Strategic shifts accordion
+function toggleShift(hdr) {
+  const body = hdr.nextElementSibling;
+  const chevron = hdr.querySelector('.shift-chevron');
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if (chevron) chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+}
+
+// Sovereignty bars animation
+function animateBars() {
+  document.querySelectorAll('.sov-fill').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    setTimeout(() => { bar.style.width = w; }, 100);
+  });
+}
+
+// Theme toggle
+(function(){
+  const t = document.querySelector('[data-theme-toggle]');
+  const r = document.documentElement;
+  let d = r.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  r.setAttribute('data-theme', d);
+  if (t) {
+    t.addEventListener('click', () => {
+      d = d === 'dark' ? 'light' : 'dark';
+      r.setAttribute('data-theme', d);
+      const icon = d === 'dark'
+        ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+        : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+      t.innerHTML = icon;
+    });
+  }
+})();
+</script>
+</body>
+</html>
